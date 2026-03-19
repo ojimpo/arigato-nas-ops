@@ -15,3 +15,4 @@
 OpenClawのブラウザリレー（Chrome拡張経由のWebページ操作）を、マシン再起動後も完全自動で復旧する仕組み。
 
 Chrome起動 → ウィンドウ最大化 → **OpenCVテンプレートマッチングで拡張アイコンを画像認識** → xdotoolでクリック、という力技で実現。Discord Webhook通知付き。
+# test
