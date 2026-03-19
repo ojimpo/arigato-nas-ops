@@ -1,0 +1,23 @@
+[Unit]
+Description=OpenClaw Browser Auto-Start
+After=openclaw-gateway.service
+Requires=openclaw-gateway.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+Environment=HOME=/home/kouki
+Environment=DISPLAY=:10
+# Set these in a drop-in override or EnvironmentFile:
+#   OPENCLAW_GATEWAY_TOKEN, OPENCLAW_RELAY_TOKEN
+#   OPENCLAW_CONTROL_PORT (default: 18791)
+#   OPENCLAW_CDP_PORT (default: 18800)
+#   OPENCLAW_RELAY_PORT (default: 18792)
+#   BROWSER_RELAY_WEBHOOK (Discord webhook URL)
+EnvironmentFile=-/home/kouki/.config/openclaw-browser-relay.env
+ExecStart=/home/kouki/bin/openclaw-browser-start.sh
+ExecStartPost=/home/kouki/bin/openclaw-browser-maximize.sh
+ExecStartPost=-/home/kouki/bin/openclaw-browser-autoattach.sh
+
+[Install]
+WantedBy=openclaw-gateway.service
