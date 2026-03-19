@@ -1,0 +1,10 @@
+[Unit]
+Description=ojimpo personal site
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/kouki/sites/ojimpo/server.py
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

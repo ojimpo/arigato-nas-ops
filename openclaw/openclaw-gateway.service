@@ -1,0 +1,25 @@
+[Unit]
+Description=OpenClaw Gateway (v2026.2.25)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/home/kouki/.local/bin/node /home/kouki/openclaw/dist/index.js gateway --port 18789
+Restart=always
+RestartSec=5
+KillMode=control-group
+MemoryMax=3G
+MemoryHigh=2G
+Environment=HOME=/home/kouki
+Environment=TMPDIR=/tmp
+Environment=PATH=/home/kouki/.local/bin:/home/kouki/.npm-global/bin:/home/kouki/bin:/home/kouki/.volta/bin:/home/kouki/.asdf/shims:/home/kouki/.bun/bin:/home/kouki/.nvm/current/bin:/home/kouki/.fnm/current/bin:/home/kouki/.local/share/pnpm:/usr/local/bin:/usr/bin:/bin
+Environment=OPENCLAW_GATEWAY_PORT=18789
+# Token is loaded from EnvironmentFile or set via `openclaw configure`
+# Environment=OPENCLAW_GATEWAY_TOKEN=your-token-here
+Environment=OPENCLAW_SYSTEMD_UNIT=openclaw-gateway.service
+Environment=OPENCLAW_SERVICE_MARKER=openclaw
+Environment=OPENCLAW_SERVICE_KIND=gateway
+Environment=OPENCLAW_SERVICE_VERSION=2026.2.25
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+gui-on
+cat <<'EOF'
+Next steps:
+1) Connect from Mac RDP to arigato-nas
+2) In the RDP terminal, run: relay-chrome
+   - This opens the dedicated Relay profile at ~/.config/google-chrome-openclaw-relay
+3) In that Chrome window, sign in with the dedicated account (first time only)
+4) Open target tab and toggle OpenClaw Browser Relay ON
+5) Tell Pi: "このタブ操作して"
+
+Tip:
+- Keep Relay work inside this dedicated profile only.
+- Avoid using the same account/profile on Mac while Relay is active.
+EOF

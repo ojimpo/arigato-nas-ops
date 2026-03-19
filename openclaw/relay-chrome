@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CHROME_BIN="${CHROME_BIN:-/usr/bin/google-chrome}"
+USER_DATA_DIR="${RELAY_USER_DATA_DIR:-$HOME/.config/google-chrome-openclaw-relay}"
+PROFILE_DIR="${RELAY_PROFILE_DIR:-Default}"
+
+mkdir -p "$USER_DATA_DIR"
+
+if [[ ! -x "$CHROME_BIN" ]]; then
+  echo "[ERROR] Chrome binary not found: $CHROME_BIN" >&2
+  echo "Set CHROME_BIN to your Chrome path and retry." >&2
+  exit 1
+fi
+
+exec "$CHROME_BIN" \
+  --user-data-dir="$USER_DATA_DIR" \
+  --profile-directory="$PROFILE_DIR" \
+  --new-window \
+  "$@"

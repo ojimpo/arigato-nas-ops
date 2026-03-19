@@ -1,0 +1,9 @@
+[Unit]
+Description=CD rip completion notifier — run every minute
+
+[Timer]
+OnCalendar=minutely
+Persistent=false
+
+[Install]
+WantedBy=timers.target

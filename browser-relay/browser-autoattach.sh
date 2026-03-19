@@ -6,7 +6,7 @@
 # Required files: icon-template.png (in same directory as this script)
 # Required packages: xdotool, xwd, python3, opencv-python-headless, websocket-client
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
 ICON_TEMPLATE="${SCRIPT_DIR}/icon-template.png"
 COORD_CACHE="/tmp/openclaw-extension-icon-coords.txt"
 CDP_PORT="${OPENCLAW_CDP_PORT:-18800}"

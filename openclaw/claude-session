@@ -1,0 +1,47 @@
+#!/bin/bash
+# Claude Code 用 tmux セッション管理スクリプト
+# 使い方:
+#   claude-session         ... セッションがなければ作成して attach（通常モード）
+#   claude-session remote  ... Remote Control 用（--dangerously-skip-permissions で起動）
+#   claude-session attach  ... 既存セッションに attach
+#   claude-session list    ... セッション一覧
+#   claude-session kill    ... セッションを終了
+
+SESSION_NAME="claude"
+
+case "${1:-start}" in
+  remote)
+    # Remote Control 用: 承認プロンプトをスキップして claude を起動
+    if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+      echo "Session '$SESSION_NAME' already exists. Attaching..."
+      tmux attach-session -t "$SESSION_NAME"
+    else
+      echo "Creating remote-control session '$SESSION_NAME'..."
+      tmux new-session -s "$SESSION_NAME" -c "$HOME/ai-work" \
+        "claude --dangerously-skip-permissions; exec bash"
+    fi
+    ;;
+  start)
+    if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+      echo "Session '$SESSION_NAME' already exists. Attaching..."
+      tmux attach-session -t "$SESSION_NAME"
+    else
+      echo "Creating new session '$SESSION_NAME'..."
+      tmux new-session -s "$SESSION_NAME" -c "$HOME/ai-work"
+    fi
+    ;;
+  attach|a)
+    tmux attach-session -t "$SESSION_NAME"
+    ;;
+  list|ls)
+    tmux list-sessions
+    ;;
+  kill)
+    tmux kill-session -t "$SESSION_NAME"
+    echo "Session '$SESSION_NAME' killed."
+    ;;
+  *)
+    echo "Usage: claude-session [start|remote|attach|list|kill]"
+    exit 1
+    ;;
+esac

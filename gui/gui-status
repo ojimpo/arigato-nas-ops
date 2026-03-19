@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+state="$(sudo -n /usr/bin/systemctl is-active xrdp || true)"
+echo "xrdp: $state"
+sudo -n /usr/bin/systemctl status xrdp

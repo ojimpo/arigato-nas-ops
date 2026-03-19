@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+sudo -n /usr/bin/systemctl start xrdp
+state="$(sudo -n /usr/bin/systemctl is-active xrdp || true)"
+if [[ "$state" == "active" ]]; then
+  echo "[OK] xrdp started. Connect from Mac RDP to: arigato-nas (or arigato-nas:3389)"
+else
+  echo "[WARN] xrdp state: $state"
+  exit 1
+fi

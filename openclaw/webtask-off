@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cat <<'EOF'
+Shutting down browser task session:
+- Save any in-progress form submissions first.
+- You can turn Relay OFF from extension icon if desired.
+EOF
+
+gui-off

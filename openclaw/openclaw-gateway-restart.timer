@@ -1,0 +1,9 @@
+[Unit]
+Description=Restart openclaw-gateway daily at 4:00 UTC
+
+[Timer]
+OnCalendar=*-*-* 19:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

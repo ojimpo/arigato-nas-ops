@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+sudo -n /usr/bin/systemctl stop xrdp
+state="$(sudo -n /usr/bin/systemctl is-active xrdp || true)"
+if [[ "$state" == "inactive" ]]; then
+  echo "[OK] xrdp stopped."
+else
+  echo "[WARN] xrdp state: $state"
+fi

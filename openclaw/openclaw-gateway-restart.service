@@ -1,0 +1,6 @@
+[Unit]
+Description=Restart openclaw-gateway to reclaim memory
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user restart openclaw-gateway.service

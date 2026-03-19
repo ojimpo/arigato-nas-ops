@@ -1,0 +1,8 @@
+[Unit]
+Description=CD rip completion notifier (Discord webhook)
+After=network.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.config/cd-rip-notify.env
+ExecStart=/usr/bin/python3 /home/kouki/clawd/skills/cd-rip-whipper/scripts/notify_from_logs.py
