@@ -1,0 +1,43 @@
+#!/bin/bash
+# Pre-commit hook: detect potential secrets before committing.
+# Catches common token patterns and high-entropy strings.
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$STAGED" ] && exit 0
+
+PATTERNS=(
+  'sk-[a-zA-Z0-9]{20,}'          # OpenAI
+  'ghp_[a-zA-Z0-9]{36}'          # GitHub PAT
+  'gho_[a-zA-Z0-9]{36}'          # GitHub OAuth
+  'github_pat_[a-zA-Z0-9_]{82}'  # GitHub fine-grained PAT
+  'glpat-[a-zA-Z0-9\-]{20,}'     # GitLab PAT
+  'xoxb-[0-9]+-[a-zA-Z0-9]+'     # Slack bot token
+  'hooks/[0-9]+/[a-zA-Z0-9_-]+$' # Discord webhook
+  'Bearer [a-zA-Z0-9._\-]{20,}'  # Bearer tokens
+  'AKIA[0-9A-Z]{16}'             # AWS access key
+  '[a-f0-9]{40,}'                 # Hex tokens (40+ chars)
+)
+
+REGEX=$(IFS='|'; echo "${PATTERNS[*]}")
+FOUND=0
+
+for file in $STAGED; do
+  [ -f "$file" ] || continue
+  # Skip binary files and example files
+  [[ "$file" == *.png ]] && continue
+  [[ "$file" == *env.example* ]] && continue
+
+  MATCHES=$(git diff --cached "$file" | grep '^+' | grep -v '^+++' | grep -oEi "$REGEX" || true)
+  if [ -n "$MATCHES" ]; then
+    echo "⚠️  Potential secret detected in $file:"
+    echo "$MATCHES" | head -3
+    echo ""
+    FOUND=1
+  fi
+done
+
+if [ "$FOUND" -eq 1 ]; then
+  echo "Commit blocked. Move secrets to .env files."
+  echo "To force commit: git commit --no-verify"
+  exit 1
+fi
