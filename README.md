@@ -47,3 +47,27 @@ OpenClaw Gateway本体のsystemdサービス、メモリリーク対策の日次
 ### [web](./web/)
 
 ojimpo.com（個人サイト）のPython軽量サーバー。systemdユーザーサービスとして常駐、Cloudflare Tunnel経由で外部公開。
+
+## OpenClawスキル
+
+OpenClaw（自宅AIアシスタント）に定型作業を教えるためのスキル定義。SKILL.mdの指示に従ってOpenClawがスクリプトを実行する。
+
+### [skills/cd-rip-whipper](./skills/cd-rip-whipper/)
+
+CDリッピングの全自動化。ディスク挿入→メタデータ取得（CDDB/MusicBrainz）→cd-paranoiaでリッピング→FLAC変換→タグ付け→音楽ライブラリ配置→Plexスキャン→Discord通知。3ドライブ同時対応。
+
+### [skills/kashidashi-katsushika-import](./skills/kashidashi-katsushika-import/)
+
+葛飾区立図書館のマイページから借用中アイテムを自動取得し、[kashidashi-app](https://github.com/ojimpo/kashidashi-app)のAPIに登録。1Password経由の自動ログイン、メタデータ補完（ISBN/MusicBrainz/TMDb）、重複排除付き。
+
+### [skills/op-service-account-browser-login](./skills/op-service-account-browser-login/)
+
+1Password Service Account経由でWebサイトに自動ログイン。ブラウザリレーと組み合わせて非対話的にログインフォームを操作する。
+
+### [skills/wol-hachiman](./skills/wol-hachiman/)
+
+ゲーミングPC（hachiman-desk）へのWake-on-LAN。「PCつけて」でOpenClawがマジックパケットを送信。
+
+### [skills/openclaw-skills-superdesign](./skills/openclaw-skills-superdesign/)
+
+モダンUIデザインのガイドライン集。OpenClawがフロントエンド実装時に参照するデザインルール。
