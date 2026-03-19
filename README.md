@@ -68,6 +68,3 @@ CDリッピングの全自動化。ディスク挿入→メタデータ取得（
 
 ゲーミングPC（hachiman-desk）へのWake-on-LAN。「PCつけて」でOpenClawがマジックパケットを送信。
 
-### [skills/openclaw-skills-superdesign](./skills/openclaw-skills-superdesign/)
-
-モダンUIデザインのガイドライン集。OpenClawがフロントエンド実装時に参照するデザインルール。
