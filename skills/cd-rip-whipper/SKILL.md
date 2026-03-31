@@ -131,6 +131,7 @@ curl -s "http://localhost:32400/library/sections/2/refresh?X-Plex-Token=$(docker
 |---|---|---|
 | `OPENCLAW_DRY_RUN` | `0` | `1` で全副作用を無効化 |
 | `OPENCLAW_TRACK_TIMEOUT` | `600` | トラックごとのリッピングタイムアウト（秒） |
+| `OPENCLAW_MAX_CONCURRENT` | `3` | 同時リッピング最大数。空きスロットがない場合は待機。 |
 
 ### 外部連携
 | Env Var | Default | 説明 |
