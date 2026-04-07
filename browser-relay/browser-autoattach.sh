@@ -12,7 +12,16 @@ COORD_CACHE="/tmp/openclaw-extension-icon-coords.txt"
 CDP_PORT="${OPENCLAW_CDP_PORT:-18800}"
 RELAY_PORT="${OPENCLAW_RELAY_PORT:-18792}"
 
-sleep 8
+# Wait for Chrome window to appear on DISPLAY
+for i in $(seq 1 10); do
+  if DISPLAY="${DISPLAY:-:10}" xdotool search --class "chrome" > /dev/null 2>&1; then
+    echo "Chrome window found on attempt $i"
+    sleep 3
+    break
+  fi
+  echo "Waiting for Chrome window... (attempt $i/10)"
+  sleep 3
+done
 
 # Find icon via template matching, falling back to cached coords
 COORDS=$(python3 << PYEOF
